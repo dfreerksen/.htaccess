@@ -1,0 +1,157 @@
+# Force the latest IE version, in various cases when it may fall back to IE7 mode
+<IfModule mod_setenvif.c>
+	<IfModule mod_headers.c>
+		BrowserMatch MSIE ie
+		Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
+	</IfModule>
+</IfModule>
+
+
+# Serve cross-domain ajax requests
+#<IfModule mod_headers.c>
+#	Header set Access-Control-Allow-Origin "*"
+#</IfModule>
+
+
+# HTC Files (for IE hacks)
+#AddType text/x-component        htc
+
+
+# HTML5 video formats
+AddType video/ogg               ogg ogv
+AddType video/mp4               mp4
+AddType video/webm              webm
+
+
+# Proper svg serving for svg webfonts on iPad
+AddType image/svg+xml           svg svgz
+
+
+# Webfont formats
+AddType application/vnd.ms-fontobject eot
+AddType font/ttf                ttf
+AddType font/otf                otf
+AddType font/x-woff             woff
+
+
+# HTML5 storage
+AddType text/cache-manifest     manifest
+
+
+# Gzip compression
+<IfModule mod_deflate.c>
+	# html, xml, css, and js
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript text/javascript application/javascript application/json text/js
+
+	# webfonts
+	<FilesMatch "\.(ttf|otf|eot|svg)$" >
+		SetOutputFilter DEFLATE
+	</FilesMatch>
+</IfModule>
+
+
+# Far-Future Expires Headers (UNCOMMENT WHEN YOU GO LIVE)
+#<IfModule mod_expires.c>
+#	Header set cache-control: public
+#	ExpiresActive on
+#
+#	# General whitelist expires rules
+#	ExpiresDefault                          "access plus 1 month"
+#
+#	# cache.manifest needs re-reqeusts in FF 3.6
+#	ExpiresByType text/cache-manifest       "access plus 0 seconds"
+#
+#	# Document HTML
+#	ExpiresByType text/html                 "access"
+#
+#	# RSS feed
+#	ExpiresByType application/rss+xml       "access plus 1 hour"
+#
+#	# Favicon (cannot be renamed)
+#	ExpiresByType image/vnd.microsoft.icon  "access plus 1 week"
+#
+#	# Media: images, video, audio
+#	ExpiresByType image/png                 "access plus 1 month"
+#	ExpiresByType image/jpg                 "access plus 1 month"
+#	ExpiresByType image/jpeg                "access plus 1 month"
+#	ExpiresByType video/ogg                 "access plus 1 month"
+#	ExpiresByType audio/ogg                 "access plus 1 month"
+#	ExpiresByType video/mp4                 "access plus 1 month"
+#
+#	# Webfonts
+#	ExpiresByType font/ttf                  "access plus 1 month"
+#	ExpiresByType font/woff                 "access plus 1 month"
+#	ExpiresByType image/svg+xml             "access plus 1 month"
+#
+#	# CSS and Javascript
+#	ExpiresByType text/css                  "access plus 1 week"
+#	ExpiresByType application/javascript    "access plus 1 week"
+#	ExpiresByType text/javascript           "access plus 1 week"
+#</IfModule>
+
+
+# Entity tags (ETags) aren't needed for static content
+FileETag None
+
+
+# Custom 404 page
+#ErrorDocument 404 /errors/404/
+
+
+# UTF-8 encoding for anything served text/plain or text/html
+AddDefaultCharset utf-8
+
+
+# Force UTF-8 for certain file formats
+AddCharset utf-8 .html .css .js .xml .json .rss
+
+
+RewriteEngine On
+RewriteBase /
+
+
+# Block users from browsing folders
+Options -Indexes
+
+
+# Whitelist allowed IPs (for staging environments?)
+#RewriteCond %{REMOTE_ADDR} !^10\.1\.10\.[0-9]*$
+#RewriteCond %{REMOTE_ADDR} !^22\.33\.44\.55$
+#RewriteCond %{HTTP_HOST} ^staging.domain.com
+#RewriteRule ^(.*)$ http://domain.com/$1 [R=301,L]
+
+
+# Remove the www
+# RewriteCond %{HTTP_HOST} ^www.domain.com$ [NC]
+# RewriteRule ^(.*)$ http://domain.com/$1 [R=301,L]
+
+
+# Add the www
+# RewriteCond %{HTTP_HOST} ^domain.com$ [NC]
+# RewriteRule ^(.*)$ http://www.domain.com/$1 [R=301,L]
+
+
+# Add a trailing slash to paths without an extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+RewriteRule ^(.*)$ $1/ [L,R=301]
+
+
+# Enable SEO Friendly URLs (remove the index.php)
+RewriteCond %{QUERY_STRING} !^(ACT=.*)$ [NC]
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5})$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} ^/(ee|template|groups|here|site|P[0-9]{2,8}) [NC]
+RewriteRule ^(.*)$ /index.php/$1 [L]
+
+
+# Environment variables
+# The following can be accessed in your application using $_SERVER['MY_ENV_VAR'] and would result in a value of "something"
+#SetEnv MY_ENV_VAR something
+
+
+# PHP changes
+#php_value upload_max_filesize   100M
+#php_value post_max_size         200M
+#php_value memory_limit          256M

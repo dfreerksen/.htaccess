@@ -1,0 +1,1 @@
+Common .htaccess template I use when building sites
