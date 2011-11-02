@@ -14,7 +14,11 @@
 
 
 # HTC Files (for IE hacks)
-#AddType text/x-component        htc
+#AddType text/x-component       htc
+
+
+# Favicon
+#AddType image/x-icon           ico
 
 
 # HTML5 video formats
