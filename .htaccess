@@ -14,32 +14,32 @@
 
 
 # HTC Files (for IE hacks)
-#AddType text/x-component       htc
+#AddType text/x-component       .htc
 
 
 # Favicon
-#AddType image/x-icon           ico
+#AddType image/x-icon           .ico
 
 
 # HTML5 video formats
-AddType video/ogg               ogg ogv
-AddType video/mp4               mp4
-AddType video/webm              webm
+AddType video/ogg               .ogg .ogv
+AddType video/mp4               .mp4
+AddType video/webm              .webm
 
 
 # Proper svg serving for svg webfonts on iPad
-AddType image/svg+xml           svg svgz
+AddType image/svg+xml           .svg .svgz
 
 
 # Webfont formats
 AddType application/vnd.ms-fontobject eot
-AddType font/ttf                ttf
-AddType font/otf                otf
-AddType font/x-woff             woff
+AddType font/ttf                .ttf
+AddType font/otf                .otf
+AddType font/x-woff             .woff
 
 
 # HTML5 storage
-AddType text/cache-manifest     manifest
+AddType text/cache-manifest     .manifest
 
 
 # Gzip compression
